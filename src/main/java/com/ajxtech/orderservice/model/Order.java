@@ -18,6 +18,6 @@ public class Order {
     private String customerName;
     private String customerEmail;
     private BigDecimal totalAmount;
-    private String status;
+    private OrderStatus status;
     private LocalDateTime createdAt;
 }
