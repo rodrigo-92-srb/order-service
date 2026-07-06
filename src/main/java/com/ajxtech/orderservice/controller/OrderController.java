@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/orders")
 @RequiredArgsConstructor
@@ -18,5 +20,15 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public OrderResponse create(@RequestBody OrderRequest request){
         return orderService.createOrder(request);
+    }
+
+    @GetMapping
+    public List<OrderResponse> listAll(){
+        return orderService.getAllOrders();
+    }
+
+    @PatchMapping("/{id}/cancel")
+    public OrderResponse cancel(@PathVariable Long id){
+        return orderService.cancelOrder(id);
     }
 }

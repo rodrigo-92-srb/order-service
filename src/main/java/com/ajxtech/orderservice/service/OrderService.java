@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -38,5 +39,21 @@ public class OrderService {
         response.setCreatedAt(order.getCreatedAt());
 
         return response;
+    }
+
+    public List<OrderResponse> getAllOrders(){
+        return orderRepository.findAll()
+                .stream()
+                .map(this::convertToResponse)
+                .toList();
+    }
+
+    public OrderResponse cancelOrder(Long id){
+        Order order = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found!"));
+
+        order.setStatus(OrderStatus.CANCELED);
+        Order savedOrder = orderRepository.save(order);
+
+        return convertToResponse(savedOrder);
     }
 }
