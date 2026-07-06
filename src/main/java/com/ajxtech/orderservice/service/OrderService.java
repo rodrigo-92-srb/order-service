@@ -2,6 +2,7 @@ package com.ajxtech.orderservice.service;
 
 import com.ajxtech.orderservice.dto.OrderRequest;
 import com.ajxtech.orderservice.dto.OrderResponse;
+import com.ajxtech.orderservice.exception.OrderNotFoundException;
 import com.ajxtech.orderservice.model.Order;
 import com.ajxtech.orderservice.model.OrderStatus;
 import com.ajxtech.orderservice.repository.OrderRepository;
@@ -49,7 +50,8 @@ public class OrderService {
     }
 
     public OrderResponse cancelOrder(Long id){
-        Order order = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found!"));
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new OrderNotFoundException("Order not found with id: "+id));
 
         order.setStatus(OrderStatus.CANCELED);
         Order savedOrder = orderRepository.save(order);
