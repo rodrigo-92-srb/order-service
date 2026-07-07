@@ -7,6 +7,7 @@ import com.ajxtech.orderservice.model.Order;
 import com.ajxtech.orderservice.model.OrderStatus;
 import com.ajxtech.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,10 +15,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
     private final OrderRepository orderRepository;
 
     public OrderResponse createOrder(OrderRequest request){
+        log.info("Creating order for customer: {}", request.getCustomerName());
         Order order = new Order();
         order.setCustomerName(request.getCustomerName());
         order.setCustomerEmail(request.getCustomerEmail());
@@ -27,6 +30,7 @@ public class OrderService {
         order.setCreatedAt(LocalDateTime.now());
 
         Order savedOrder = orderRepository.save(order);
+        log.info("Order created successfully with ID: {}", savedOrder.getId());
 
         return convertToResponse(savedOrder);
     }
@@ -50,12 +54,17 @@ public class OrderService {
     }
 
     public OrderResponse cancelOrder(Long id){
+        log.info("Attempting to cancel order with ID: {}", id);
         Order order = orderRepository.findById(id)
-                .orElseThrow(() -> new OrderNotFoundException("Order not found with id: "+id));
+                .orElseThrow(() -> {
+                    log.error("Failed to cancel: Order {} not found", id);
+                    return new OrderNotFoundException("Order not found with id: "+id);
+                });
 
         order.setStatus(OrderStatus.CANCELED);
         Order savedOrder = orderRepository.save(order);
 
+        log.info("Order {} canceled successfully", id);
         return convertToResponse(savedOrder);
     }
 }
