@@ -18,6 +18,9 @@ public class Order {
     private String customerName;
     private String customerEmail;
     private BigDecimal totalAmount;
+
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
     private LocalDateTime createdAt;
 }
