@@ -1,7 +1,7 @@
 package com.ajxtech.orderservice.controller;
 
-import com.ajxtech.orderservice.dto.OrderRequest;
-import com.ajxtech.orderservice.dto.OrderResponse;
+import com.ajxtech.orderservice.dto.request.OrderRequest;
+import com.ajxtech.orderservice.dto.response.OrderResponse;
 import com.ajxtech.orderservice.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

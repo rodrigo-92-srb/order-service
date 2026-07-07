@@ -1,7 +1,7 @@
 package com.ajxtech.orderservice.service;
 
-import com.ajxtech.orderservice.dto.OrderRequest;
-import com.ajxtech.orderservice.dto.OrderResponse;
+import com.ajxtech.orderservice.dto.request.OrderRequest;
+import com.ajxtech.orderservice.dto.response.OrderResponse;
 import com.ajxtech.orderservice.exception.OrderNotFoundException;
 import com.ajxtech.orderservice.model.Order;
 import com.ajxtech.orderservice.model.OrderStatus;

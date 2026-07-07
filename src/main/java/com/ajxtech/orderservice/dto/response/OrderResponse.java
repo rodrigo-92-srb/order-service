@@ -1,4 +1,4 @@
-package com.ajxtech.orderservice.dto;
+package com.ajxtech.orderservice.dto.response;
 
 import com.ajxtech.orderservice.model.OrderStatus;
 import lombok.Data;

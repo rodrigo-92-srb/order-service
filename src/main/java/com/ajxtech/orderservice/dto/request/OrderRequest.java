@@ -1,4 +1,4 @@
-package com.ajxtech.orderservice.dto;
+package com.ajxtech.orderservice.dto.request;
 
 import lombok.Data;
 
